@@ -1,12 +1,14 @@
 package com.laurentiuspilca.ssia.filters;
 
 
-import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.Filter;
+
+import jakarta.servlet.*;
+import jakarta.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-public class AuthenticationLoggingFilter implements Filter {
+    public class AuthenticationLoggingFilter implements Filter {
 
     private final Logger logger =
             Logger.getLogger(AuthenticationLoggingFilter.class.getName());
