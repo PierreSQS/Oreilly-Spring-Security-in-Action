@@ -12,21 +12,21 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class MainTests {
+class MainTests {
 
     @Autowired
-    private MockMvc mvc;
+    MockMvc mvc;
 
     @Test
     @DisplayName("Endpoint /hello without providing the Request-Id header")
-    public void testHelloNoRequestIdHeader() throws Exception {
+    void testHelloNoRequestIdHeader() throws Exception {
         mvc.perform(get("/hello"))
                 .andExpect(status().isBadRequest());
     }
 
     @Test
     @DisplayName("Endpoint /hello providing the Request-Id header")
-    public void testHelloValidRequestIdHeader() throws Exception {
+    void testHelloValidRequestIdHeader() throws Exception {
         mvc.perform(get("/hello").header("Request-Id", "12345"))
                 .andExpect(status().isOk());
     }
