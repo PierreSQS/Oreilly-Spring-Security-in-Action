@@ -5,17 +5,17 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.6.2</version>
+        <version>3.0.1</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.laurentiuspilca</groupId>
     <artifactId>ssia-ch2-ex3-pierrot</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>ssia-ch2-ex3-pierrot</name>
-    <description>Demo project for Spring Boot</description>
+    <description>Spring Security Chap2</description>
 
     <properties>
-        <java.version>11</java.version>
+        <java.version>17</java.version>
     </properties>
 
     <dependencies>

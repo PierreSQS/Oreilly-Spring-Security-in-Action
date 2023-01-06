@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class MainPierrotNoPwdEncTests {
 
     @Autowired
-    private MockMvc mvc;
+    MockMvc mvc;
 
     @Test
     @DisplayName("Test calling /hello endpoint without authentication returns unauthorized.")
@@ -30,7 +30,7 @@ class MainPierrotNoPwdEncTests {
         mvc.perform(get("/hello"))
                 .andExpect(status().isUnauthorized())
                 .andDo(print());
-        ;
+
     }
 
     @Test
@@ -40,7 +40,7 @@ class MainPierrotNoPwdEncTests {
         mvc.perform(get("/hello"))
                 .andExpect(status().isOk())
                 .andDo(print());
-        ;
+
     }
 
     @Test
