@@ -16,9 +16,8 @@ public class ProjectConfig {
 
         var inMemUserDetailsManager = new InMemoryUserDetailsManager();
 
-        var user = User.withDefaultPasswordEncoder()
-                .username("john")
-                .password("12345")
+        var user = User.withUsername("john")
+                .password("{noop}12345")
                 .authorities("read")
                 .build();
 
