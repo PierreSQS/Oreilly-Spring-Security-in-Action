@@ -16,7 +16,9 @@ public class ProjectConfig extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    http.authorizeRequests().antMatchers("/h2-console/**").permitAll();
+    http.csrf().ignoringAntMatchers("/h2-console/**")
+    .and()
+         .authorizeRequests().antMatchers("/h2-console/**").permitAll();
     http.headers().frameOptions().sameOrigin();
   }
 
