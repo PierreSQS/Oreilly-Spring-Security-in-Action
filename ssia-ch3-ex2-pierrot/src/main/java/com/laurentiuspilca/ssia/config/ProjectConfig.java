@@ -10,15 +10,17 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 public class ProjectConfig {
 
   @Bean
   public SecurityFilterChain filterChain (HttpSecurity http) throws Exception {
-    http.csrf().ignoringRequestMatchers("/h2-console/**")
+    AntPathRequestMatcher antPathRequestMatcher = new AntPathRequestMatcher("/h2-console/**");
+    http.csrf().ignoringRequestMatchers(antPathRequestMatcher)
     .and()
-         .authorizeHttpRequests().requestMatchers("/h2-console/**").permitAll();
+         .authorizeHttpRequests().requestMatchers(antPathRequestMatcher).permitAll();
     http.headers().frameOptions().sameOrigin();
     return http.build();
   }
