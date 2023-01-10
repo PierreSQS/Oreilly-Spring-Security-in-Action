@@ -14,6 +14,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class ProjectConfig {
 
+  @Bean
   public SecurityFilterChain filterChain (HttpSecurity http) throws Exception {
     http.csrf().ignoringRequestMatchers("/h2-console/**")
     .and()
