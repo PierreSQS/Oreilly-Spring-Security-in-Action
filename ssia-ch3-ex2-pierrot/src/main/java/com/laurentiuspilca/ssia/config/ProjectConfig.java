@@ -2,6 +2,7 @@ package com.laurentiuspilca.ssia.config;
 
 import javax.sql.DataSource;
 
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -10,17 +11,15 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 public class ProjectConfig {
 
   @Bean
   public SecurityFilterChain filterChain (HttpSecurity http) throws Exception {
-    AntPathRequestMatcher antPathRequestMatcher = new AntPathRequestMatcher("/h2-console/**");
-    http.csrf().ignoringRequestMatchers(antPathRequestMatcher)
+    http.csrf().ignoringRequestMatchers(PathRequest.toH2Console())
     .and()
-         .authorizeHttpRequests().requestMatchers(antPathRequestMatcher).permitAll();
+         .authorizeHttpRequests().requestMatchers(PathRequest.toH2Console()).permitAll();
     http.headers().frameOptions().sameOrigin();
     return http.build();
   }
