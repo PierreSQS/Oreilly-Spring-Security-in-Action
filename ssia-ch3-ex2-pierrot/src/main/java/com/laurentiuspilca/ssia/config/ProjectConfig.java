@@ -19,7 +19,13 @@ public class ProjectConfig {
   public SecurityFilterChain filterChain (HttpSecurity http) throws Exception {
     http.csrf().ignoringRequestMatchers(PathRequest.toH2Console())
     .and()
-         .authorizeHttpRequests().requestMatchers(PathRequest.toH2Console()).permitAll();
+         .authorizeHttpRequests()
+            .requestMatchers(PathRequest.toH2Console()).permitAll()
+            .requestMatchers("/hello").authenticated()
+    .and()
+            .httpBasic()
+    .and()
+            .formLogin();
     http.headers().frameOptions().sameOrigin();
     return http.build();
   }
