@@ -14,15 +14,16 @@ import javax.sql.DataSource;
 
 @Configuration
 public class ProjectConfig {
-
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
     PathRequest.H2ConsoleRequestMatcher h2ConsoleRequestMatcher = PathRequest.toH2Console();
     httpSecurity.csrf().ignoringRequestMatchers(h2ConsoleRequestMatcher)
             .and()
-                .authorizeHttpRequests().requestMatchers(h2ConsoleRequestMatcher).permitAll()
+            .authorizeHttpRequests().requestMatchers(h2ConsoleRequestMatcher).permitAll()
             .and()
-                .headers().frameOptions().sameOrigin();
+            .headers().frameOptions().sameOrigin()
+            .and()
+            .authorizeHttpRequests().anyRequest().authenticated();
     return httpSecurity.build();
   }
   @Bean
