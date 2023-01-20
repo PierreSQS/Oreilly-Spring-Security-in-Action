@@ -22,7 +22,7 @@ class MainTests {
     @DisplayName("Test calling /hello endpoint without authentication returns unauthorized.")
     void helloUnauthenticated() throws Exception {
         mvc.perform(get("/hello"))
-                .andExpect(status().isForbidden());
+                .andExpect(status().isUnauthorized());
     }
 
     @Test
