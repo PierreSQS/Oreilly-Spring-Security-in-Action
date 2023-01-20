@@ -13,21 +13,21 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class MainTests {
+class MainTests {
 
     @Autowired
-    private MockMvc mvc;
+    MockMvc mvc;
 
     @Test
     @DisplayName("Test calling /hello endpoint without authentication returns unauthorized.")
-    public void helloUnauthenticated() throws Exception {
+    void helloUnauthenticated() throws Exception {
         mvc.perform(get("/hello"))
-                .andExpect(status().isUnauthorized());
+                .andExpect(status().isForbidden());
     }
 
     @Test
     @DisplayName("Test calling /hello endpoint authenticated returns ok.")
-    public void helloAuthenticated() throws Exception {
+    void helloAuthenticated() throws Exception {
         mvc.perform(get("/hello")
                 .with(user("john")))
                 .andExpect(status().isOk());
