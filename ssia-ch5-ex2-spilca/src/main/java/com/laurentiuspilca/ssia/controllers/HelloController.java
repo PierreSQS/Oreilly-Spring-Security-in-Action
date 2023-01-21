@@ -1,6 +1,7 @@
 package com.laurentiuspilca.ssia.controllers;
 
 import com.laurentiuspilca.ssia.services.HelloService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.concurrent.DelegatingSecurityContextCallable;
@@ -15,6 +16,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+@Slf4j
 @RestController
 public class HelloController {
 
@@ -23,6 +25,7 @@ public class HelloController {
 
     @GetMapping("/hello")
     public String hello(Authentication a) {
+        log.info("####### Entering hello() ###########");
 //        SecurityContext context = SecurityContextHolder.getContext();
 //        Authentication a = context.getAuthentication();
 
@@ -32,12 +35,14 @@ public class HelloController {
     @GetMapping("/bye")
     @Async
     public void goodbye() {
+        log.info("####### Entering goodbye() ###########");
         SecurityContext context = SecurityContextHolder.getContext();
         String username = context.getAuthentication().getName();
     }
 
     @GetMapping("/ciao")
     public String ciao() throws Exception {
+        log.info("####### Entering ciao() ###########");
         Callable<String> task = () -> {
             SecurityContext context = SecurityContextHolder.getContext();
             return context.getAuthentication().getName();
@@ -54,6 +59,7 @@ public class HelloController {
 
     @GetMapping("/hola")
     public String hola() throws Exception {
+        log.info("####### Entering hola() ###########");
         Callable<String> task = () -> {
             SecurityContext context = SecurityContextHolder.getContext();
             return context.getAuthentication().getName();
