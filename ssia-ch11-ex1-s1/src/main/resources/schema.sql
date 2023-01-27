@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS `spring`.`user` (
-    `username` VARCHAR(45) NULL,
+    `username` VARCHAR(45) NOT NULL,
     `password` TEXT NULL,
     PRIMARY KEY (`username`));
 
