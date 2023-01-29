@@ -27,9 +27,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.DELETE, "/**").hasAuthority("fitnessadmin")
                 .anyRequest().authenticated()
              .and()
-                .oauth2ResourceServer(oauth2 ->
-                        oauth2.jwt(jwt -> jwt.jwkSetUri(urlJwk)
-                        ));
+                .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
 
         return http.build();
     }
