@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface WorkoutRepository extends JpaRepository<Workout, Integer> {
 
-    @Query("SELECT w FROM Workout w WHERE w.user = ?#{authentication?.getTokenAttributes()['preferred_username'].toString()}")
+    @Query("SELECT w FROM Workout w WHERE w.user = ?#{authentication.getTokenAttributes()['user_name']}")
     List<Workout> findAllByUser();
 }
