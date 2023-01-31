@@ -16,7 +16,7 @@ public class WorkoutService {
         this.workoutRepository = workoutRepository;
     }
 
-    @PreAuthorize("#workout.user == authentication.name")
+    @PreAuthorize("#workout.user == authentication.getTokenAttributes()['user_name']")
     public void saveWorkout(Workout workout) {
         workoutRepository.save(workout);
     }
