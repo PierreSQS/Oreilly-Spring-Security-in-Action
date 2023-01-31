@@ -33,7 +33,7 @@ class MethodTests {
 
     @Test
     @DisplayName("When the method is called without a user, " +
-            "it throws AuthenticationException")
+            "it throws IllegalArgumentException")
     void testProductServiceWithNoUser() {
         Workout w = new Workout();
         assertThrows(IllegalArgumentException.class,
