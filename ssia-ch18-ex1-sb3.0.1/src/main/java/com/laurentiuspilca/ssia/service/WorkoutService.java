@@ -2,7 +2,6 @@ package com.laurentiuspilca.ssia.service;
 
 import com.laurentiuspilca.ssia.entities.Workout;
 import com.laurentiuspilca.ssia.repositories.WorkoutRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
@@ -11,8 +10,11 @@ import java.util.List;
 @Service
 public class WorkoutService {
 
-    @Autowired
-    private WorkoutRepository workoutRepository;
+    private final WorkoutRepository workoutRepository;
+
+    public WorkoutService(WorkoutRepository workoutRepository) {
+        this.workoutRepository = workoutRepository;
+    }
 
     @PreAuthorize("#workout.user == authentication.name")
     public void saveWorkout(Workout workout) {
