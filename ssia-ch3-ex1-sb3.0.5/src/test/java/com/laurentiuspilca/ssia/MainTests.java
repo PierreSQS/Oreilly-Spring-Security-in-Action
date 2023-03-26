@@ -13,21 +13,21 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class MainTests {
+class MainTests {
 
     @Autowired
-    private MockMvc mvc;
+    MockMvc mvc;
 
     @Test
     @DisplayName("Test calling /hello endpoint without authentication returns unauthorized.")
-    public void helloUnauthenticated() throws Exception {
+    void helloUnauthenticated() throws Exception {
         mvc.perform(get("/hello"))
                 .andExpect(status().isUnauthorized());
     }
 
     @Test
     @DisplayName("Test calling /hello endpoint authenticated returns ok.")
-    public void helloAuthenticated() throws Exception {
+    void helloAuthenticated() throws Exception {
         mvc.perform(get("/hello")
                 .with(user("john")))
                 .andExpect(status().isOk());
@@ -35,7 +35,7 @@ public class MainTests {
 
     @Test
     @DisplayName("Test calling /hello endpoint authenticating with wrong credentials returns unauthorized.")
-    public void helloAuthenticatingWithWrongUser() throws Exception {
+    void helloAuthenticatingWithWrongUser() throws Exception {
         mvc.perform(get("/hello")
                 .with(httpBasic("bill","12345")))
                 .andExpect(status().isUnauthorized());
@@ -43,7 +43,7 @@ public class MainTests {
 
     @Test
     @DisplayName("Test calling /hello endpoint authenticating with valid credentials returns ok.")
-    public void helloAuthenticatingWithValidUser() throws Exception {
+    void helloAuthenticatingWithValidUser() throws Exception {
         mvc.perform(get("/hello")
                 .with(httpBasic("john","12345")))
                 .andExpect(status().isOk());
