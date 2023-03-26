@@ -19,11 +19,13 @@ public class ProjectConfig {
     PathRequest.H2ConsoleRequestMatcher h2ConsoleRequestMatcher = PathRequest.toH2Console();
     httpSecurity.csrf().ignoringRequestMatchers(h2ConsoleRequestMatcher)
             .and()
-            .authorizeHttpRequests().requestMatchers(h2ConsoleRequestMatcher).permitAll()
+              .authorizeHttpRequests().requestMatchers(h2ConsoleRequestMatcher).permitAll()
             .and()
-            .headers().frameOptions().sameOrigin()
+              .headers().frameOptions().sameOrigin()
             .and()
-            .authorizeHttpRequests().anyRequest().authenticated();
+              .authorizeHttpRequests().anyRequest().authenticated()
+            .and()
+              .httpBasic();
     return httpSecurity.build();
   }
   @Bean
