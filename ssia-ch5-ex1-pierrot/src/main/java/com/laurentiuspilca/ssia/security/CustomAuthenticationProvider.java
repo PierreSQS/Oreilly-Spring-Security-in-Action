@@ -1,6 +1,6 @@
 package com.laurentiuspilca.ssia.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -10,14 +10,18 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
-    @Autowired
-    private UserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
+
+    public CustomAuthenticationProvider(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
+        this.userDetailsService = userDetailsService;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public Authentication authenticate(Authentication authentication) {
@@ -26,6 +30,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
         UserDetails u = userDetailsService.loadUserByUsername(username);
         if (passwordEncoder.matches(password, u.getPassword())) {
+            log.info("USER {} authenticated!",username );
             return new UsernamePasswordAuthenticationToken(username, password, u.getAuthorities());
         } else {
             throw new BadCredentialsException("Something went wrong!");
