@@ -29,6 +29,8 @@ public class ProjectConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    // Register an instance of the new AuthenticationProvider implementation
+    // Not necessary from SB3.0.x!!!!!
     @Override
     protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(authenticationProvider);
