@@ -8,21 +8,24 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.unauthenticated;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class MainTests {
+class MainTests {
 
     @Autowired
-    private MockMvc mvc;
+    MockMvc mvc;
 
     @Test
     @DisplayName("The endpoint cannot be called unauthenticated")
-    public void testFailedAuthentication() throws Exception {
+    void testFailedAuthentication() throws Exception {
         mvc.perform(get("/hello"))
                 .andExpect(unauthenticated());
     }
@@ -30,7 +33,7 @@ public class MainTests {
     @Test
     @DisplayName("A user without privileges can authenticate but is not authorized")
     @WithUserDetails("john")
-    public void testSuccessfulAuthentication() throws Exception {
+    void testSuccessfulAuthentication() throws Exception {
         mvc.perform(get("/hello"))
              .andExpect(authenticated())
              .andExpect(status().isForbidden());
@@ -39,9 +42,19 @@ public class MainTests {
     @Test
     @DisplayName("A user with privileges can authenticate and is authorized")
     @WithUserDetails("jane")
-    public void testSuccessfulAuthorization() throws Exception {
+    void testSuccessfulAuthorization() throws Exception {
         mvc.perform(get("/hello"))
                 .andExpect(authenticated())
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("Pierrot test with http authentication")
+    void testHttpBasicAuthentication() throws Exception {
+        mvc.perform(get("/hello").with(httpBasic("jane","12345")))
+                .andExpect(status().isOk())
+                .andExpect(authenticated())
+                .andExpect(content().string("Hello!"))
+                .andDo(print());
     }
 }

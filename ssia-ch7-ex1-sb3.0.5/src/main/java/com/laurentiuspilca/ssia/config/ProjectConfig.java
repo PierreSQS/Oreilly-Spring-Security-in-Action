@@ -19,12 +19,12 @@ public class ProjectConfig {
         var manager = new InMemoryUserDetailsManager();
 
         var user1 = User.withUsername("john")
-                        .password("12345")
+                        .password("{bcrypt}$2a$10$f73apJVt1QFI49zWnZD2Q.JrnEZ5C8lgwrlLbSmlLtn18iuAEP70W")//12345
                         .authorities("READ")
                         .build();
 
         var user2 = User.withUsername("jane")
-                        .password("12345")
+                        .password("{bcrypt}$2a$10$ReIgPzOeIn8Y1HyR3kojpeiWSyylAAQ04AqDCyTl8dFjsWqOQNrpW")//12345
                         .authorities("WRITE")
                         .build();
 
