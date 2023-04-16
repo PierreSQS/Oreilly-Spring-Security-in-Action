@@ -40,7 +40,7 @@ public class ProjectConfig {
     protected void configure(HttpSecurity http) throws Exception {
         http.httpBasic();
 
-        http.authorizeRequests()
+        http.authorizeHttpRequests()
                 .requestMatchers( "/a/b/**").authenticated()
                 .anyRequest().permitAll();
 

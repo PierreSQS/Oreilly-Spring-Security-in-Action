@@ -52,7 +52,7 @@ class MainTests {
 
     @Test
     @DisplayName("Any other endpoint can be called unauthenticated")
-    public void testCallingAnyOtherEndpoint() throws Exception {
+    void testCallingAnyOtherEndpoint() throws Exception {
         mvc.perform(get("/a"))
                 .andExpect(status().isOk());
         mvc.perform(post("/a"))
