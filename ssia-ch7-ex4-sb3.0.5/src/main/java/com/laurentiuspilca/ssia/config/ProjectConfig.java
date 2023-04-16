@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.expression.WebExpressionAuthorizationManager;
 
 @Configuration
 public class ProjectConfig {
@@ -43,8 +44,9 @@ public class ProjectConfig {
         http.httpBasic();
 
 
-        http.authorizeRequests()
-                .anyRequest().access("T(java.time.LocalTime).now().isAfter(T(java.time.LocalTime).of(12, 0))");
+        http.authorizeHttpRequests()
+                .anyRequest()
+                .access(new WebExpressionAuthorizationManager("T(java.time.LocalTime).now().isAfter(T(java.time.LocalTime).of(12, 0))"));
 
         return http.build();
     }
