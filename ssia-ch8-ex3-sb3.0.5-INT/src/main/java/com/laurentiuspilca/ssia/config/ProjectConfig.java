@@ -3,7 +3,6 @@ package com.laurentiuspilca.ssia.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
@@ -11,9 +10,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @Configuration
-public class ProjectConfig extends WebSecurityConfigurerAdapter {
+public class ProjectConfig {
 
-    @Override
     @Bean
     public UserDetailsService userDetailsService() {
         var manager = new InMemoryUserDetailsManager();
@@ -39,12 +37,11 @@ public class ProjectConfig extends WebSecurityConfigurerAdapter {
         return NoOpPasswordEncoder.getInstance();
     }
 
-    @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.httpBasic();
 
         http.authorizeRequests()
-                .mvcMatchers( "/a/b/**").authenticated()
+                .requestMatchers( "/a/b/**").authenticated()
                 .anyRequest().permitAll();
 
         http.csrf().disable();

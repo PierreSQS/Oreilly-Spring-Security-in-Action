@@ -15,14 +15,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class MainTests {
+class MainTests {
 
     @Autowired
-    private MockMvc mvc;
+    MockMvc mvc;
 
     @Test
     @DisplayName("Endpoint a/b/c cannot be called unauthenticated")
-    public void testCallingABCUnauthenticated() throws Exception {
+    void testCallingABCUnauthenticated() throws Exception {
         mvc.perform(get("/a/b/c"))
                 .andExpect(unauthenticated());
     }
@@ -30,14 +30,14 @@ public class MainTests {
     @Test
     @DisplayName("Endpoint a/b/c can be called if authenticated")
     @WithUserDetails("john")
-    public void testCallingABCAuthenticated() throws Exception {
+    void testCallingABCAuthenticated() throws Exception {
         mvc.perform(get("/a/b/c"))
                 .andExpect(status().isOk());
     }
 
     @Test
     @DisplayName("Endpoint a/b cannot be called unauthenticated")
-    public void testCallingABUnauthenticated() throws Exception {
+    void testCallingABUnauthenticated() throws Exception {
         mvc.perform(get("/a/b"))
                 .andExpect(unauthenticated());
     }
@@ -45,7 +45,7 @@ public class MainTests {
     @Test
     @DisplayName("Endpoint a/b can be called if authenticated")
     @WithUserDetails("john")
-    public void testCallingABAuthenticated() throws Exception {
+    void testCallingABAuthenticated() throws Exception {
         mvc.perform(get("/a/b"))
                 .andExpect(status().isOk());
     }
