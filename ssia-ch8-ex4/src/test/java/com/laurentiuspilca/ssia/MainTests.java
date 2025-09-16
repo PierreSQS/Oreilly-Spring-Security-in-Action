@@ -12,21 +12,21 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class MainTests {
+class MainTests {
 
     @Autowired
-    private MockMvc mvc;
+    MockMvc mvc;
 
     @Test
     @DisplayName("Endpoint /product can be called if it has a valid path variable value")
-    public void testCallingProductWithValidParam() throws Exception {
+    void testCallingProductWithValidParam() throws Exception {
         mvc.perform(get("/product/12345"))
                 .andExpect(status().isOk());
     }
 
     @Test
     @DisplayName("Endpoint /product cannot be called if it has a non-valid path variable value")
-    public void testCallingProductWithInvalidParam() throws Exception {
+    void testCallingProductWithInvalidParam() throws Exception {
         mvc.perform(get("/product/abc12"))
                 .andExpect(status().isUnauthorized());
     }
