@@ -9,6 +9,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -23,7 +24,8 @@ class MainTests {
     @DisplayName("Test calling /hello endpoint without authentication returns unauthorized.")
     void helloUnauthenticated() throws Exception {
         mvc.perform(get("/hello"))
-                .andExpect(status().isUnauthorized());
+                .andExpect(status().isUnauthorized())
+                .andDo(print());
     }
 
     @Test
@@ -32,7 +34,8 @@ class MainTests {
     void helloAuthenticated() throws Exception {
         mvc.perform(get("/hello"))
                 .andExpect(content().string("Hello, mary!"))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andDo(print());
     }
 
     @Test
@@ -41,7 +44,8 @@ class MainTests {
     void ciaoAuthenticated() throws Exception {
         mvc.perform(get("/ciao"))
                 .andExpect(content().string("Ciao, mary!"))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andDo(print());
     }
 
     @Test
@@ -50,7 +54,8 @@ class MainTests {
     void holaAuthenticated() throws Exception {
         mvc.perform(get("/hola"))
                 .andExpect(content().string("Hola, mary!"))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andDo(print());
     }
 
 }
