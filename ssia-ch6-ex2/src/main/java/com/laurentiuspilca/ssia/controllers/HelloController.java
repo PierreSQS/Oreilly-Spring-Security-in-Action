@@ -34,13 +34,9 @@ public class HelloController {
             SecurityContext context = SecurityContextHolder.getContext();
             return context.getAuthentication().getName();
         };
-
-        ExecutorService e = Executors.newCachedThreadPool();
-        try {
+        try (ExecutorService e = Executors.newCachedThreadPool()){
             var contextTask = new DelegatingSecurityContextCallable<>(task);
             return "Ciao, " + e.submit(contextTask).get() + "!";
-        } finally {
-            e.shutdown();
         }
     }
 
@@ -51,12 +47,9 @@ public class HelloController {
             return context.getAuthentication().getName();
         };
 
-        ExecutorService e = Executors.newCachedThreadPool();
-        e = new DelegatingSecurityContextExecutorService(e);
-        try {
+        try (ExecutorService delegate = Executors.newCachedThreadPool()) {
+            ExecutorService e = new DelegatingSecurityContextExecutorService(delegate);
             return "Hola, " + e.submit(task).get() + "!";
-        } finally {
-            e.shutdown();
         }
 
     }
