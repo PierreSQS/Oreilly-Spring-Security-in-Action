@@ -1,6 +1,5 @@
 package com.laurentiuspilca.ssia.controllers;
 
-import com.laurentiuspilca.ssia.services.HelloService;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.concurrent.DelegatingSecurityContextCallable;
 import org.springframework.security.concurrent.DelegatingSecurityContextExecutorService;
@@ -17,17 +16,8 @@ import java.util.concurrent.Executors;
 @RestController
 public class HelloController {
 
-    private final HelloService helloService;
-
-    public HelloController(HelloService helloService) {
-        this.helloService = helloService;
-    }
-
     @GetMapping("/hello")
     public String hello(Authentication a) {
-//        SecurityContext context = SecurityContextHolder.getContext();
-//        Authentication a = context.getAuthentication();
-
         return "Hello, " + a.getName() + "!";
     }
 
@@ -35,7 +25,7 @@ public class HelloController {
     @Async
     public void goodbye() {
         SecurityContext context = SecurityContextHolder.getContext();
-        String username = context.getAuthentication().getName();
+        context.getAuthentication().getName();
     }
 
     @GetMapping("/ciao")
@@ -68,5 +58,6 @@ public class HelloController {
         } finally {
             e.shutdown();
         }
+
     }
 }
