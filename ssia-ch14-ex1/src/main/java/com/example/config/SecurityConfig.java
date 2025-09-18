@@ -50,7 +50,7 @@ public class SecurityConfig {
     http.getConfigurer(OAuth2AuthorizationServerConfigurer.class)
         .oidc(Customizer.withDefaults());
 
-    http.exceptionHandling((e) ->
+    http.exceptionHandling(e ->
             e.authenticationEntryPoint(
                 new LoginUrlAuthenticationEntryPoint("/login"))
         );
