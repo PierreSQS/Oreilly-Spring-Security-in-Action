@@ -9,6 +9,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -22,15 +23,17 @@ class MainTests {
     @DisplayName("Test calling /hello endpoint without authentication returns unauthorized.")
     void helloUnauthenticated() throws Exception {
         mvc.perform(get("/hello"))
-                .andExpect(status().isUnauthorized());
+                .andExpect(status().isUnauthorized())
+                .andDo(print());
     }
 
     @Test
     @DisplayName("Test calling /hello endpoint authenticated returns ok.")
     void helloAuthenticated() throws Exception {
         mvc.perform(get("/hello")
-            .with(user("john")))
-            .andExpect(status().isOk());
+                        .with(user("john")))
+                .andExpect(status().isOk())
+                .andDo(print());
     }
 
 }
