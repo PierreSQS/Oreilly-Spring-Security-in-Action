@@ -22,8 +22,7 @@ public class ProjectConfig {
         http.authenticationProvider(authenticationProvider);
 
         http.authorizeHttpRequests(
-            c -> c.anyRequest().authenticated()
-        );
+            c -> c.anyRequest().authenticated());
 
         return http.build();
     }

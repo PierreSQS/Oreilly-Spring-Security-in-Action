@@ -13,14 +13,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class AuthenticationTests {
+class AuthenticationTests {
 
     @Autowired
-    private MockMvc mvc;
+    MockMvc mvc;
 
     @Test
     @DisplayName("Test calling /hello endpoint authenticating with valid credentials returns ok.")
-    public void helloAuthenticatingWithValidUser() throws Exception {
+    void helloAuthenticatingWithValidUser() throws Exception {
         mvc.perform(get("/hello")
                 .with(httpBasic("john","12345")))
                 .andExpect(status().isOk());
@@ -28,7 +28,7 @@ public class AuthenticationTests {
 
     @Test
     @DisplayName("Test calling /hello endpoint authenticating with wrong credentials returns unauthorized.")
-    public void helloAuthenticatingWithInvalidUser() throws Exception {
+    void helloAuthenticatingWithInvalidUser() throws Exception {
         mvc.perform(get("/hello")
                 .with(httpBasic("mary","12345")))
                 .andExpect(status().isUnauthorized());
