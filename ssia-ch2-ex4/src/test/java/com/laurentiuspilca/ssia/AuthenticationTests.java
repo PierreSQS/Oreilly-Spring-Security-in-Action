@@ -9,6 +9,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -23,7 +24,8 @@ class AuthenticationTests {
     void helloAuthenticatingWithValidUser() throws Exception {
         mvc.perform(get("/hello")
                 .with(httpBasic("john","12345")))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andDo(print());
     }
 
     @Test
@@ -31,6 +33,7 @@ class AuthenticationTests {
     void helloAuthenticatingWithInvalidUser() throws Exception {
         mvc.perform(get("/hello")
                 .with(httpBasic("mary","12345")))
-                .andExpect(status().isUnauthorized());
+                .andExpect(status().isUnauthorized())
+                .andDo(print());
     }
 }
